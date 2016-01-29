@@ -14,7 +14,7 @@ public class Plow {
     public Plow(String leftServo, String rightServo, HardwareMap hardwareMap) {
         this.leftServo = new ExtendedServo(hardwareMap.servo.get(leftServo));
         this.rightServo = new ExtendedServo(hardwareMap.servo.get(rightServo));
-        this.goUp();
+        this.goDown();
     }
 
     public void goDown() {
