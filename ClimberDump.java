@@ -18,14 +18,14 @@ public class ClimberDump {
         this.holdClimbers();
     }
 
-    private void holdClimbers() {
-        //climberDump.setPosition();
-        //climberDumperState = climberDumperEnumeration.HOLDING;
+    public void holdClimbers() {
+        climberDump.setPosition(0.7);
+        climberDumperState = climberDumperEnumeration.HOLDING;
     }
 
-    private void dumpClimbers() {
-        //climberDump.setPosition();
-        //climberDumperState = climberDumperEnumeration.DUMPING;
+    public void dumpClimbers() {
+        climberDump.setPosition(0.3);
+        climberDumperState = climberDumperEnumeration.DUMPING;
     }
 
     @Override

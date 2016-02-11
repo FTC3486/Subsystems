@@ -65,17 +65,17 @@ public class Turret {
     }
 
     public void wholeDumpDebris() {
-        dumper.setPosition(0.7);
+        dumper.setPosition(0.86);
     }
 
 
     public void halfDumpDebris() {
-        dumper.setPosition(0.4);
+        dumper.setPosition(0.56);
         isDumping = true;
     }
 
     public void holdDebris() {
-        dumper.setPosition(0.0);
+        dumper.setPosition(0.16);
         isDumping = false;
     }
 
