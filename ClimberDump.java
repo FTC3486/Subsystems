@@ -8,8 +8,9 @@ import com.qualcomm.robotcore.hardware.Servo;
  */
 public class ClimberDump {
     Servo climberDump;
+    public boolean hasDumped = false;
 
-    enum climberDumperEnumeration {HOLDING, DUMPING}
+    enum climberDumperEnumeration {HOLDING, STAYINGVERTICAL, DUMPING}
 
     climberDumperEnumeration climberDumperState = climberDumperEnumeration.HOLDING;
 
@@ -23,8 +24,13 @@ public class ClimberDump {
         climberDumperState = climberDumperEnumeration.HOLDING;
     }
 
+    public void stayVertical() {
+        climberDump.setPosition(0.655);
+        climberDumperState = climberDumperEnumeration.STAYINGVERTICAL;
+    }
+
     public void dumpClimbers() {
-        climberDump.setPosition(0.3);
+        climberDump.setPosition(0.63);
         climberDumperState = climberDumperEnumeration.DUMPING;
     }
 
@@ -33,6 +39,9 @@ public class ClimberDump {
         switch (climberDumperState) {
             case HOLDING:
                 return "HOLDING";
+
+            case STAYINGVERTICAL:
+                return "STAYING VERTICAL";
 
             case DUMPING:
                 return "DUMPING";
