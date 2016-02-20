@@ -23,15 +23,20 @@ public class Turret {
     private ExtendedServo dumper;
     private boolean isDumping = false;
 
-    public Turret(String swivel, String extender, String dumper, HardwareMap hardwareMap) {
+    private ExtendedServo dumperSwivel;
+
+    public Turret(String swivel, String extender, String dumper, String dumperSwivel, HardwareMap hardwareMap) {
         this.swivel = hardwareMap.dcMotor.get(swivel);
         this.extender = hardwareMap.dcMotor.get(extender);
         this.dumper = new ExtendedServo(hardwareMap.servo.get(dumper));
+        this.dumperSwivel = new ExtendedServo(hardwareMap.servo.get(dumperSwivel));
 
         this.swivel.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         this.swivel.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
 
-        this.dumper.setPosition(0.0);
+        this.holdDebris();
+
+        this.dumperSwivelCenter();
     }
 
     public void swivelRight() {
@@ -75,8 +80,20 @@ public class Turret {
     }
 
     public void holdDebris() {
-        dumper.setPosition(0.16);
+        dumper.setPosition(0.3);
         isDumping = false;
+    }
+
+    public void dumperSwivelRight() {
+        dumperSwivel.setPosition(0.75);
+    }
+
+    public void dumperSwivelLeft() {
+        dumperSwivel.setPosition(0);
+    }
+
+    public void dumperSwivelCenter() {
+        dumperSwivel.setPosition(0.5);
     }
 
     @Override
