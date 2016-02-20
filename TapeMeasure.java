@@ -51,6 +51,10 @@ public class TapeMeasure {
         tapeTiltState = tapeTiltEnum.UP;
     }
 
+    public void tiltBack() {
+        tapeTilt.setPosition(0.04);
+    }
+
     public void stopTilt() {
         tapeTiltState = tapeTiltEnum.STOP;
     }
