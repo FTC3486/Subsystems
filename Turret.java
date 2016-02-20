@@ -2,6 +2,7 @@ package com.FTC3486.Subsystems;
 
 import android.widget.Switch;
 
+import com.FTC3486.FTCRC_Extensions.Driver;
 import com.FTC3486.FTCRC_Extensions.ExtendedServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
@@ -28,6 +29,7 @@ public class Turret {
     public Turret(String swivel, String extender, String dumper, String dumperSwivel, HardwareMap hardwareMap) {
         this.swivel = hardwareMap.dcMotor.get(swivel);
         this.extender = hardwareMap.dcMotor.get(extender);
+        this.extender.setDirection(DcMotor.Direction.REVERSE);
         this.dumper = new ExtendedServo(hardwareMap.servo.get(dumper));
         this.dumperSwivel = new ExtendedServo(hardwareMap.servo.get(dumperSwivel));
 
@@ -80,7 +82,7 @@ public class Turret {
     }
 
     public void holdDebris() {
-        dumper.setPosition(0.3);
+        dumper.setPosition(0.375);
         isDumping = false;
     }
 
@@ -93,7 +95,7 @@ public class Turret {
     }
 
     public void dumperSwivelCenter() {
-        dumperSwivel.setPosition(0.5);
+        dumperSwivel.setPosition(0.45);
     }
 
     @Override
