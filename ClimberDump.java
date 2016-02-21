@@ -30,7 +30,7 @@ public class ClimberDump {
     }
 
     public void dumpClimbers() {
-        climberDump.setPosition(0.63);
+        climberDump.setPosition(0.6);
         climberDumperState = climberDumperEnumeration.DUMPING;
     }
 
