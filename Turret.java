@@ -15,7 +15,7 @@ public class Turret {
     private swivelMotorEnum swivelState = swivelMotorEnum.STOP;
 
     private DcMotor extender;
-    private enum extenderMotorEnum {IN, OUT, STOP};
+    private enum extenderMotorEnum {IN, OUT, STOP}
     private extenderMotorEnum extenderState = extenderMotorEnum.STOP;
 
     private ExtendedServo dumper;
