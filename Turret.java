@@ -1,8 +1,5 @@
 package com.FTC3486.Subsystems;
 
-import android.widget.Switch;
-
-import com.FTC3486.FTCRC_Extensions.Driver;
 import com.FTC3486.FTCRC_Extensions.ExtendedServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
