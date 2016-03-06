@@ -51,6 +51,8 @@ public class TapeMeasure {
         tapeTiltState = tapeTiltEnum.UP;
     }
 
+    public void tiltToScore() { tapeTilt.setPosition(0.165);}
+
     public void tiltBack() {
         tapeTilt.setPosition(0.04);
     }
