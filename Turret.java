@@ -22,6 +22,8 @@ public class Turret {
     private boolean isDumping = false;
 
     private ExtendedServo dumperSwivel;
+    private enum dumperSwivelEnum {LEFT, RIGHT, CENTER}
+    private dumperSwivelEnum dumperSwivelState = dumperSwivelEnum.CENTER;
 
     public Turret(String swivel, String extender, String dumper, String dumperSwivel, HardwareMap hardwareMap) {
         this.swivel = hardwareMap.dcMotor.get(swivel);
@@ -85,14 +87,17 @@ public class Turret {
 
     public void dumperSwivelRight() {
         dumperSwivel.setPosition(0.75);
+        dumperSwivelState = dumperSwivelEnum.RIGHT;
     }
 
     public void dumperSwivelLeft() {
         dumperSwivel.setPosition(0);
+        dumperSwivelState = dumperSwivelEnum.LEFT;
     }
 
     public void dumperSwivelCenter() {
         dumperSwivel.setPosition(0.45);
+        dumperSwivelState = dumperSwivelEnum.CENTER;
     }
 
     @Override
@@ -140,6 +145,25 @@ public class Turret {
             returnString += "DUMPING";
         } else {
             returnString += "HOLDING";
+        }
+
+        returnString += "\nDumperSwivel ";
+        switch(dumperSwivelState) {
+            case RIGHT:
+                returnString += "RIGHT";
+                break;
+
+            case LEFT:
+                returnString += "LEFT";
+                break;
+
+            case CENTER:
+                returnString += "CENTER";
+                break;
+
+            default:
+                returnString += "UNKNOWN";
+                break;
         }
 
         return returnString;
