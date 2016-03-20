@@ -19,12 +19,12 @@ public class ChurroLock {
     }
 
     public void unlock() {
-        churroLock.setPosition(1);
+        churroLock.setPosition(0.0);
         churroLockState = churroLockEnumeration.UNLOCKED;
     }
 
     public void lock() {
-        churroLock.setPosition(0.0);
+        churroLock.setPosition(0.8);
         churroLockState = churroLockEnumeration.LOCKED;
     }
 
