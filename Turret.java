@@ -41,12 +41,12 @@ public class Turret {
     }
 
     public void swivelRight() {
-        swivel.setPower(0.25);
+        swivel.setPower(-0.25);
         swivelState = swivelMotorEnum.RIGHT;
     }
 
     public void swivelLeft() {
-        swivel.setPower(-0.25);
+        swivel.setPower(0.25);
         swivelState = swivelMotorEnum.LEFT;
     }
 
@@ -71,7 +71,7 @@ public class Turret {
     }
 
     public void wholeDumpDebris() {
-        dumper.setPosition(0.2);
+        dumper.setPosition(0.1);
     }
 
 
@@ -96,7 +96,7 @@ public class Turret {
     }
 
     public void dumperSwivelCenter() {
-        dumperSwivel.setPosition(0.6);
+        dumperSwivel.setPosition(0.55);
         dumperSwivelState = dumperSwivelEnum.CENTER;
     }
 
