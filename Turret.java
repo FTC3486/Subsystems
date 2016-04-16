@@ -71,22 +71,18 @@ public class Turret {
     }
 
     public void dumpBlocks(float right_stick_y) {
-        if(right_stick_y < 0) {
-            dumper.setPosition( (0.525)*right_stick_y + 0.625 );
-        } else {
-            this.holdDebris();
-        }
+        dumper.setPosition( (0.525)*right_stick_y + 0.625 );
     }
 
     /*public void wholeDumpDebris() {
         dumper.setPosition(0.1);
-    }
+    }*/
 
 
     public void halfDumpDebris() {
         dumper.setPosition(0.4);
         isDumping = true;
-    }*/
+    }
 
     public void holdDebris() {
         dumper.setPosition(0.625);
