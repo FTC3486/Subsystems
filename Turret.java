@@ -72,7 +72,7 @@ public class Turret {
 
     public void dumpBlocks(float right_stick_y) {
         if(right_stick_y < 0) {
-            dumper.setPosition((0.375)*right_stick_y + 0.625);
+            dumper.setPosition( (0.525)*right_stick_y + 0.625 );
         } else {
             this.holdDebris();
         }
