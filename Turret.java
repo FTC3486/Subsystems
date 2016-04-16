@@ -86,17 +86,17 @@ public class Turret {
     }
 
     public void dumperSwivelRight() {
-        dumperSwivel.setPosition(0.85);
+        dumperSwivel.setPosition(0.95);
         dumperSwivelState = dumperSwivelEnum.RIGHT;
     }
 
     public void dumperSwivelLeft() {
-        dumperSwivel.setPosition(0.15);
+        dumperSwivel.setPosition(0.25);
         dumperSwivelState = dumperSwivelEnum.LEFT;
     }
 
     public void dumperSwivelCenter() {
-        dumperSwivel.setPosition(0.55);
+        dumperSwivel.setPosition(0.65);
         dumperSwivelState = dumperSwivelEnum.CENTER;
     }
 
