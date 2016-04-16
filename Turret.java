@@ -70,7 +70,15 @@ public class Turret {
         extenderState = extenderMotorEnum.STOP;
     }
 
-    public void wholeDumpDebris() {
+    public void dumpBlocks(float right_stick_y) {
+        if(right_stick_y < 0) {
+            dumper.setPosition((0.375)*right_stick_y + 0.625);
+        } else {
+            this.holdDebris();
+        }
+    }
+
+    /*public void wholeDumpDebris() {
         dumper.setPosition(0.1);
     }
 
@@ -78,7 +86,7 @@ public class Turret {
     public void halfDumpDebris() {
         dumper.setPosition(0.4);
         isDumping = true;
-    }
+    }*/
 
     public void holdDebris() {
         dumper.setPosition(0.625);
