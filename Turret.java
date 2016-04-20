@@ -80,7 +80,7 @@ public class Turret {
 
 
     public void halfDumpDebris() {
-        dumper.setPosition(0.4);
+        dumper.setPosition(0.55);
         isDumping = true;
     }
 
