@@ -18,8 +18,8 @@ public class Plow {
     }
 
     public void goDown() {
-        leftServo.setPosition(0.18);
-        rightServo.setPosition(.5);
+        leftServo.setPosition(0.0);
+        rightServo.setPosition(.68);
         isPlowDown = true;
     }
 
