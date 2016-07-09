@@ -1,9 +1,9 @@
 package com.FTC3486.Subsystems;
 
-import com.FTC3486.FTCRC_Extensions.ExtendedServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Created by Matthew on 1/16/2016.
@@ -18,10 +18,10 @@ public class Turret {
     private enum extenderMotorEnum {IN, OUT, STOP}
     private extenderMotorEnum extenderState = extenderMotorEnum.STOP;
 
-    private ExtendedServo dumper;
+    private Servo dumper;
     private boolean isDumping = false;
 
-    private ExtendedServo dumperSwivel;
+    private Servo dumperSwivel;
     private enum dumperSwivelEnum {LEFT, RIGHT, CENTER}
     private dumperSwivelEnum dumperSwivelState = dumperSwivelEnum.CENTER;
 
@@ -29,8 +29,8 @@ public class Turret {
         this.swivel = hardwareMap.dcMotor.get(swivel);
         this.extender = hardwareMap.dcMotor.get(extender);
         this.extender.setDirection(DcMotor.Direction.REVERSE);
-        this.dumper = new ExtendedServo(hardwareMap.servo.get(dumper));
-        this.dumperSwivel = new ExtendedServo(hardwareMap.servo.get(dumperSwivel));
+        this.dumper = hardwareMap.servo.get(dumper);
+        this.dumperSwivel = hardwareMap.servo.get(dumperSwivel);
 
         this.swivel.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         this.swivel.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);

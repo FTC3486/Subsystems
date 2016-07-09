@@ -1,15 +1,15 @@
 package com.FTC3486.Subsystems;
 
 import com.FTC3486.FTCRC_Extensions.ContinuousServo;
-import com.FTC3486.FTCRC_Extensions.ExtendedServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Created by Matthew on 1/16/2016.
  */
 public class TapeMeasure {
     ContinuousServo tapeMotor;
-    ExtendedServo tapeTilt;
+    Servo tapeTilt;
 
     enum tapeMotorEnum {EXTEND, RETRACT, STOP}
     tapeMotorEnum tapeMotorState = tapeMotorEnum.STOP;
@@ -19,7 +19,7 @@ public class TapeMeasure {
 
     public TapeMeasure(String tapeMotor, String tapeTilt, HardwareMap hardwareMap) {
         this.tapeMotor = new ContinuousServo(hardwareMap.servo.get(tapeMotor));
-        this.tapeTilt = new ExtendedServo(hardwareMap.servo.get(tapeTilt));
+        this.tapeTilt = hardwareMap.servo.get(tapeTilt);
         this.tapeMotor.setPosition(0.5);
         this.tapeTilt.setPosition(0.19);
     }

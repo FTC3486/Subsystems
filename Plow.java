@@ -1,19 +1,19 @@
 package com.FTC3486.Subsystems;
 
-import com.FTC3486.FTCRC_Extensions.ExtendedServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Created by Matthew on 1/16/2016.
  */
 public class Plow {
-    private ExtendedServo leftServo;
-    private ExtendedServo rightServo;
+    private Servo leftServo;
+    private Servo rightServo;
     private boolean isPlowDown = false;
 
     public Plow(String leftServo, String rightServo, HardwareMap hardwareMap) {
-        this.leftServo = new ExtendedServo(hardwareMap.servo.get(leftServo));
-        this.rightServo = new ExtendedServo(hardwareMap.servo.get(rightServo));
+        this.leftServo = hardwareMap.servo.get(leftServo);
+        this.rightServo = hardwareMap.servo.get(rightServo);
         this.goDown();
     }
 

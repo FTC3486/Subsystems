@@ -1,17 +1,17 @@
 package com.FTC3486.Subsystems;
 
-import com.FTC3486.FTCRC_Extensions.ExtendedServo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Created by Matthew on 1/16/2016.
  */
 public class ParkingBrake {
-    private ExtendedServo parkingBrakeServo;
+    private Servo parkingBrakeServo;
     private boolean isParkingBrakeEngaged = false;
 
     public ParkingBrake(String parkingBrakeServo, HardwareMap hardwareMap) {
-        this.parkingBrakeServo = new ExtendedServo(hardwareMap.servo.get(parkingBrakeServo));
+        this.parkingBrakeServo = hardwareMap.servo.get(parkingBrakeServo);
         this.release();
     }
 
