@@ -1,50 +1,54 @@
-package com.FTC3486.Subsystems;
+package org.firstinspires.ftc.teamcode.Subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+
 /**
- * Created by Matthew on 1/16/2016.
+ * Created by John Paul Ashour on 11/12/2016.
  */
+
 public class Pickup {
-    private DcMotor pickup;
+    public DcMotor Pickup = null;
 
-    private enum pickupMotorEnum {COLLECT, REVERSE, STOP}
-    private pickupMotorEnum pickupState = pickupMotorEnum.STOP;
 
-    public Pickup(String pickup, HardwareMap hardwareMap) {
-        this.pickup = hardwareMap.dcMotor.get(pickup);
+    private enum pickupEnum {Run, Reverse, Stop}
+    pickupEnum PickupState =pickupEnum.Stop;
+
+    public Pickup(String Pickup, HardwareMap hardwareMap) {
+        this.Pickup = hardwareMap.dcMotor.get(Pickup);
     }
 
-    public void collect() {
-        pickup.setPower(-1.0);
-        pickupState = pickupMotorEnum.COLLECT;
-    }
-
-    public void reverse() {
-        pickup.setPower(1.0);
-        pickupState = pickupMotorEnum.REVERSE;
+    public void run() {
+        Pickup.setPower(1.0);
+        PickupState = pickupEnum.Run;
     }
 
     public void stop() {
-        pickup.setPower(0.0);
-        pickupState = pickupMotorEnum.STOP;
+        Pickup.setPower(0);
+        PickupState = pickupEnum.Stop;
+    }
+    public void reverse(){
+        Pickup.setPower(-1.0);
+        PickupState = pickupEnum.Reverse;
     }
 
     @Override
     public String toString() {
-        switch (pickupState) {
-            case COLLECT:
-                return "COLLECT";
+        switch (PickupState){
+            case Run:
+                return "Running";
 
-            case REVERSE:
-                return "REVERSE";
-
-            case STOP:
-                return "STOP";
+            case Stop:
+                return "Stopped";
 
             default:
-                return "UNKNOWN";
+                return "Unknown";
+
         }
+
+
     }
+
 }
