@@ -35,9 +35,24 @@ public class GlyphLift {
         Lift.setPower(-1.0);
         }
     }
+
+    public void shortlift(){
+        while(Lift.getCurrentPosition() < 1300){
+            Lift.setPower(1.0);
+        }
+    }
+
 //Stops Glyph Lift motion and holds current position
     public void stop(){
         Lift.setPower(0);
+    }
+
+    public void reset(){
+        if(liftTouch.getState() == false){
+
+            Lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            Lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
     }
 
     @Override

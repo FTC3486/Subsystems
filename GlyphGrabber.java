@@ -41,13 +41,13 @@ public class GlyphGrabber {
         LeftServo1.setPosition(0.09);
         LeftServo2.setPosition(0.86);
         RightServo1.setPosition(0.85);
-        RightServo2.setPosition(0);
+        RightServo2.setPosition(0.15);
     }
 //Close top side of glyph grabber (Initially the top but changes depending on spinner rotation)
     public void closeGrabber1(){
-        leftServoPosition1 =0.35;
+        leftServoPosition1 =0.38;
         LeftServo1.setPosition(leftServoPosition1);
-        rightServoPosition1 =0.53;
+        rightServoPosition1 =0.58;
         RightServo1.setPosition(rightServoPosition1);
     }
 
@@ -59,9 +59,9 @@ public class GlyphGrabber {
     }
     //Close bottom side of glyph grabber (Initially the bottom but changes depending on spinner rotation)
     public void closeGrabber2(){
-        leftServoPosition2 =0.68;
+        leftServoPosition2 =0.64;
         LeftServo2.setPosition(leftServoPosition2);
-        rightServoPosition2 =0.43;
+        rightServoPosition2 =0.4;
         RightServo2.setPosition(rightServoPosition2);
     }
 
@@ -89,7 +89,7 @@ public class GlyphGrabber {
     public void openGrabber2(){
         leftServoPosition2 =0.34;
         LeftServo2.setPosition(leftServoPosition2);
-        rightServoPosition2 =0.9;
+        rightServoPosition2 =0.6;
         RightServo2.setPosition(rightServoPosition2);
     }
 

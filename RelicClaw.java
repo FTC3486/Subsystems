@@ -8,22 +8,25 @@ import com.qualcomm.robotcore.hardware.Servo;
  */
 
 public class RelicClaw {
-    Servo ClawServo1;
-    Servo ClawServo2;
+    public Servo ClawServo1;
+    public Servo ClawServo2;
+    public Servo Pivot;
     public boolean isOpen = false;
 
     double claw1position;
     double claw2position;
+    double pivotPosition;
 
     private enum clawServoEnum {Open, Close}
 
     clawServoEnum clawServoState = clawServoEnum.Close;
 
 
-    public RelicClaw(String clawServo1, String clawServo2, HardwareMap hardwareMap) {
+    public RelicClaw(String clawServo1, String clawServo2, String pivotServo, HardwareMap hardwareMap) {
         this.ClawServo1 = hardwareMap.servo.get(clawServo1);
         this.ClawServo2 = hardwareMap.servo.get(clawServo2);
-        this.grabRelic();
+        this.Pivot = hardwareMap.servo.get(pivotServo);
+        //this.grabRelic();
 
     }
 
@@ -42,17 +45,37 @@ public class RelicClaw {
     }
 
     public void grabRelic() {
-        ClawServo1.setPosition(0);
-        ClawServo2.setPosition(0);
+        ClawServo1.setPosition(0.49);
+        ClawServo2.setPosition(0.49);
         clawServoState = clawServoEnum.Close;
         isOpen = false;
     }
 
     public void releaseRelic() {
-        ClawServo1.setPosition(0.5);
-        ClawServo2.setPosition(0.5);
+        ClawServo1.setPosition(0.2);
+        ClawServo2.setPosition(0.2);
         clawServoState = clawServoEnum.Open;
         isOpen = true;
+    }
+
+    public void pivotClockwise(){
+        pivotPosition = pivotPosition +0.01;
+        Pivot.setPosition(pivotPosition);
+    }
+
+    public void pivotPosition1(){
+        pivotPosition = 0.21;
+        Pivot.setPosition(pivotPosition);
+    }
+
+    public void pivotPosition2(){
+        pivotPosition = 0.34;
+        Pivot.setPosition(pivotPosition);
+    }
+
+    public void pivotCounterclockwise(){
+        pivotPosition = pivotPosition -0.01;
+        Pivot.setPosition(pivotPosition);
     }
 
     @Override

@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
  */
 
 public class RelicLift {
-    public DcMotor Lift = null;
+    private DcMotor Lift = null;
 
 
     private enum columnEnum {Extend, Retract, Stop}
