@@ -45,8 +45,8 @@ public class RelicClaw {
     }
 
     public void grabRelic() {
-        ClawServo1.setPosition(0.49);
-        ClawServo2.setPosition(0.49);
+        ClawServo1.setPosition(0.6);
+        ClawServo2.setPosition(0.6);
         clawServoState = clawServoEnum.Close;
         isOpen = false;
     }
@@ -64,12 +64,12 @@ public class RelicClaw {
     }
 
     public void pivotPosition1(){
-        pivotPosition = 0.21;
+        pivotPosition = 0.17;
         Pivot.setPosition(pivotPosition);
     }
 
     public void pivotPosition2(){
-        pivotPosition = 0.34;
+        pivotPosition = 0.05;
         Pivot.setPosition(pivotPosition);
     }
 

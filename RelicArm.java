@@ -19,15 +19,15 @@ public class RelicArm {
     public RelicArm(String Arm, HardwareMap hardwareMap) {
         this.Arm = hardwareMap.dcMotor.get(Arm);
     }
-//Runs Glyph Lift up
+//Extends Relic Arm
     public void extend(){
-        Arm.setPower(1.0);
-    }
-//Runs Glyph Lift down
-    public void retract(){
         Arm.setPower(-1.0);
     }
-//Stops Glyph Lift motion and holds current position
+//Retracts Relic Arm
+    public void retract(){
+        Arm.setPower(1.0);
+    }
+//Stops Relic Arm motion and holds current position
     public void stop(){
         Arm.setPower(0);
     }

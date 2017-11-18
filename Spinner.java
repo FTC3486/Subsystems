@@ -21,9 +21,9 @@ public class Spinner {
     private spinnerEnum ColumnState = spinnerEnum.Stop;
 
 
-    public Spinner(String Spinner, String Ods, HardwareMap hardwareMap) {
+    public Spinner(String Spinner, /*String Ods,*/ HardwareMap hardwareMap) {
         this.Spinner = hardwareMap.dcMotor.get(Spinner);
-        this.Ods = hardwareMap.colorSensor.get(Ods);
+     //   this.Ods = hardwareMap.colorSensor.get(Ods);
     }
 //Initial Spinner position, detected with Optical Distance Sensor
     public void Position1() {
