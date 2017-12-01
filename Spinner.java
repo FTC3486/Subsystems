@@ -2,8 +2,11 @@ package org.firstinspires.ftc.teamcode.Subsystems;
 
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -12,48 +15,50 @@ import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 
 public class Spinner {
     public DcMotor Spinner = null;
-    public ColorSensor Ods;
-
-
+    public DigitalChannel spinnerTouch;
 
     private enum spinnerEnum {Position1, Position2, Stop}
 
     private spinnerEnum ColumnState = spinnerEnum.Stop;
 
 
-    public Spinner(String Spinner, /*String Ods,*/ HardwareMap hardwareMap) {
+    public Spinner(String Spinner, String Touch, HardwareMap hardwareMap) {
         this.Spinner = hardwareMap.dcMotor.get(Spinner);
-     //   this.Ods = hardwareMap.colorSensor.get(Ods);
+        spinnerTouch= hardwareMap.get(DigitalChannel.class, Touch);
+        spinnerTouch.setMode(DigitalChannel.Mode.INPUT);
     }
-//Initial Spinner position, detected with Optical Distance Sensor
+
+    //Initial Spinner position, detected with Optical Distance Sensor
     public void Position1() {
-        if (Spinner.getCurrentPosition()>30) {
-            Spinner.setPower(-0.4);
+        if (Spinner.getCurrentPosition() < 0) {
+            Spinner.setPower(0.4);
 
         } else {
             Spinner.setPower(0);
+        }
     }
-    }
+
     //Alternate Spinner position, detected with Optical Distance Sensor
     public void Position2() {
-                if (Spinner.getCurrentPosition()<560) {
-            Spinner.setPower(0.4);
-        }else{
+        if (Spinner.getCurrentPosition() > -550) {
+            Spinner.setPower(-0.4);
+        } else {
             Spinner.setPower(0);
         }
 
     }
 
-    public void Reset(){
+    public void Reset() {
         stop();
-        while (Spinner.getCurrentPosition()>-580){
+        ElapsedTime timer = new ElapsedTime(0);
+        while (Spinner.getCurrentPosition() > -580 && timer.time(TimeUnit.MILLISECONDS) < 200) {
             Spinner.setPower(-0.4);
         }
         stop();
     }
 
-//Stops spinner motion and holds current position
-    public void stop(){
+    //Stops spinner motion and holds current position
+    public void stop() {
         Spinner.setPower(0);
 
         Spinner.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -62,7 +67,7 @@ public class Spinner {
 
     @Override
     public String toString() {
-        switch (ColumnState){
+        switch (ColumnState) {
             case Position1:
                 return "Position 1";
 

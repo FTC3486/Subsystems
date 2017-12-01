@@ -23,12 +23,12 @@ public class JewelArm {
     }
 
     public void autoInit(){
-        armServo.setPosition(0);
+        armServo.setPosition(0.24);
     }
 
 
     public void up() {
-        armServo.setPosition(0.9);
+        armServo.setPosition(0.43);
         armServoState = armServoStateEnum.Up;
         isUp = true;
     }
@@ -39,7 +39,7 @@ public class JewelArm {
     }
 
     public void down() {
-        armServo.setPosition(0.3);
+        armServo.setPosition(0.84);
         armServoState = armServoStateEnum.Down;
         isUp = false;
     }
