@@ -21,11 +21,11 @@ public class RelicArm {
     }
 //Extends Relic Arm
     public void extend(){
-        Arm.setPower(-1.0);
+        Arm.setPower(-0.5);
     }
 //Retracts Relic Arm
     public void retract(){
-        Arm.setPower(1.0);
+        Arm.setPower(0.5);
     }
 //Stops Relic Arm motion and holds current position
     public void stop(){
