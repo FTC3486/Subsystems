@@ -10,70 +10,89 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
  */
 
 public class GlyphLift {
-    public DcMotor Lift = null;
-    public DigitalChannel liftTouch;
+    private DcMotor lift;
+    private DigitalChannel liftTouch;
 
+    private enum GlyphLiftEnum {
+        LIFTING,
+        RETRACTING,
+        STOPPED
+    }
+    private GlyphLiftEnum glyphLiftState;
 
-
-    private enum columnEnum {Extend, Retract, Stop}
-    private columnEnum ColumnState = columnEnum.Stop;
-
-
-    public GlyphLift(String Lift, String Touch, HardwareMap hardwareMap) {
-        this.Lift = hardwareMap.dcMotor.get(Lift);
-
-        liftTouch= hardwareMap.get(DigitalChannel.class, Touch);
+    public GlyphLift(String lift, String touchSensor, HardwareMap hardwareMap) {
+        this.lift = hardwareMap.dcMotor.get(lift);
+        liftTouch = hardwareMap.get(DigitalChannel.class, touchSensor);
         liftTouch.setMode(DigitalChannel.Mode.INPUT);
+
+        stop();
     }
-//Runs Glyph Lift up
-    public void lift(){
-        Lift.setPower(1.0);
+
+    public boolean isFullyRetracted() {
+        return !liftTouch.getState();
     }
-//Runs Glyph Lift down
-    public void retract(){
-        if(liftTouch.getState() == true){
-        Lift.setPower(-1.0);
+
+    /**
+     * Runs Glyph Lift up
+     */
+    public void lift() {
+        lift.setPower(1.0);
+        glyphLiftState = GlyphLiftEnum.LIFTING;
+    }
+
+    /**
+     * Runs Glyph Lift down
+     */
+    public void retract() {
+        if (isFullyRetracted()) {
+            stop();
+            reset();
+        } else {
+            lift.setPower(-1.0);
+            glyphLiftState = GlyphLiftEnum.RETRACTING;
         }
     }
 
-    public void shortlift(){
-        while(Lift.getCurrentPosition() < 1300){
-            Lift.setPower(1.0);
-        }
+//    public void shortlift() {
+//        while (lift.getCurrentPosition() < 1300) {
+//            lift.setPower(1.0);
+//            glyphLiftState = GlyphLiftEnum.LIFTING;
+//        }
+//    }
+
+    /**
+     * Stops Glyph Lift motion and holds current position
+     */
+    public void stop() {
+        lift.setPower(0);
+        glyphLiftState = GlyphLiftEnum.STOPPED;
     }
 
-//Stops Glyph Lift motion and holds current position
-    public void stop(){
-        Lift.setPower(0);
-    }
-
-    public void reset(){
-        if(liftTouch.getState() == false){
-
-            Lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            Lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        }
+    private void reset() {
+        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     @Override
     public String toString() {
-        switch (ColumnState){
-            case Extend:
-                return "Extending";
+        switch (glyphLiftState) {
+            case LIFTING:
+                return "Lifting";
 
-            case Retract:
+            case RETRACTING:
                 return "Retracting";
 
-            case Stop:
-                return "Stopped";
+            case STOPPED:
+                String telemetry;
+                if (isFullyRetracted()) {
+                    telemetry = "Stopped: Fully Retracted";
+                } else {
+                    telemetry = "Stopped: Not Fully Retracted";
+                }
+                return telemetry;
 
             default:
                 return "Unknown";
-
         }
-
-
     }
-
-
 }
