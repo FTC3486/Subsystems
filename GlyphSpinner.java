@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
  * Created by John Paul Ashour on 11/13/2016.
  */
 
-public class Spinner {
+public class GlyphSpinner {
     public DcMotor Spinner = null;
     public DigitalChannel spinnerTouch;
 
@@ -22,7 +22,7 @@ public class Spinner {
     private spinnerEnum ColumnState = spinnerEnum.Stop;
 
 
-    public Spinner(String Spinner, String Touch, HardwareMap hardwareMap) {
+    public GlyphSpinner(String Spinner, String Touch, HardwareMap hardwareMap) {
         this.Spinner = hardwareMap.dcMotor.get(Spinner);
         spinnerTouch= hardwareMap.get(DigitalChannel.class, Touch);
         spinnerTouch.setMode(DigitalChannel.Mode.INPUT);
