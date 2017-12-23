@@ -30,7 +30,7 @@ public class Spinner {
 
     //Initial Spinner position, detected with Optical Distance Sensor
     public void Position1() {
-        if (Spinner.getCurrentPosition() < 0) {
+        if (Spinner.getCurrentPosition() < -5) {
             Spinner.setPower(0.4);
 
         } else {
@@ -49,10 +49,9 @@ public class Spinner {
     }
 
     public void Reset() {
-        stop();
         ElapsedTime timer = new ElapsedTime(0);
-        while (Spinner.getCurrentPosition() > -580 && timer.time(TimeUnit.MILLISECONDS) < 200) {
-            Spinner.setPower(-0.4);
+        while (spinnerTouch.getState() != false && timer.time(TimeUnit.MILLISECONDS) < 1000) {
+            Spinner.setPower(0.4);
         }
         stop();
     }
