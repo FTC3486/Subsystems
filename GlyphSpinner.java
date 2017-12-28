@@ -1,12 +1,8 @@
 package org.firstinspires.ftc.teamcode.Subsystems;
 
-import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.ElapsedTime;
-
-import java.util.concurrent.TimeUnit;
+import com.qualcomm.robotcore.hardware.Servo;
 
 
 /**
@@ -14,75 +10,87 @@ import java.util.concurrent.TimeUnit;
  */
 
 public class GlyphSpinner {
-    public DcMotor Spinner = null;
-    public DigitalChannel spinnerTouch;
+    private Servo spinner;
+    private DigitalChannel spinnerTouch;
 
-    private enum spinnerEnum {Position1, Position2, Stop}
+    static final double FLIPPED_SERVO_POSITION = 0;
+    static final double UNFLIPPED_SERVO_POSITION = 1;
 
-    private spinnerEnum ColumnState = spinnerEnum.Stop;
+    private enum GlyphSpinnerEnum {
+        UNFLIPPED,
+        FLIPPED,
+        UNFLIPPING,
+        FLIPPING,
+    }
 
+    private GlyphSpinnerEnum glyphSpinnerState;
 
-    public GlyphSpinner(String Spinner, String Touch, HardwareMap hardwareMap) {
-        this.Spinner = hardwareMap.dcMotor.get(Spinner);
-        spinnerTouch= hardwareMap.get(DigitalChannel.class, Touch);
+    public GlyphSpinner(String spinner, String touchSensor, HardwareMap hardwareMap) {
+        this.spinner = hardwareMap.servo.get(spinner);
+        spinnerTouch = hardwareMap.get(DigitalChannel.class, touchSensor);
         spinnerTouch.setMode(DigitalChannel.Mode.INPUT);
+
+        this.determineInitialPosition();
     }
 
-    //Initial Spinner position, detected with Optical Distance Sensor
-    public void Position1() {
-        if (Spinner.getCurrentPosition() < -5) {
-            Spinner.setPower(0.4);
-
+    private void determineInitialPosition() {
+        double unflippedDifference = Math.abs(this.spinner.getPosition() - UNFLIPPED_SERVO_POSITION);
+        double flippedDifference = Math.abs(this.spinner.getPosition() - FLIPPED_SERVO_POSITION);
+        if (flippedDifference > unflippedDifference) {
+            glyphSpinnerState = GlyphSpinnerEnum.UNFLIPPED;
         } else {
-            Spinner.setPower(0);
+            glyphSpinnerState = GlyphSpinnerEnum.FLIPPED;
         }
     }
 
-    //Alternate Spinner position, detected with Optical Distance Sensor
-    public void Position2() {
-        if (Spinner.getCurrentPosition() > -550) {
-            Spinner.setPower(-0.4);
+    private boolean isAbleToFlip() {
+
+    }
+
+    public boolean isFlipping() {
+        return glyphSpinnerState == GlyphSpinnerEnum.FLIPPING || glyphSpinnerState == GlyphSpinnerEnum.UNFLIPPING;
+    }
+
+    public boolean isFlipped() {
+        return glyphSpinnerState == GlyphSpinnerEnum.FLIPPED;
+    }
+
+    public void flip() {
+        if (this.isAbleToFlip()) {
+            if (glyphSpinnerState == GlyphSpinnerEnum.FLIPPED || glyphSpinnerState == GlyphSpinnerEnum.UNFLIPPING) {
+                this.spinner.setPosition(UNFLIPPED_SERVO_POSITION);
+                glyphSpinnerState = GlyphSpinnerEnum.UNFLIPPED;
+            } else {
+                this.spinner.setPosition(FLIPPED_SERVO_POSITION);
+                glyphSpinnerState = GlyphSpinnerEnum.FLIPPED;
+            }
         } else {
-            Spinner.setPower(0);
+            if (glyphSpinnerState == GlyphSpinnerEnum.UNFLIPPED) {
+                glyphSpinnerState = GlyphSpinnerEnum.FLIPPING;
+            }
+            if (glyphSpinnerState == GlyphSpinnerEnum.FLIPPED) {
+                glyphSpinnerState = GlyphSpinnerEnum.UNFLIPPING;
+            }
         }
-
-    }
-
-    public void Reset() {
-        ElapsedTime timer = new ElapsedTime(0);
-        while (spinnerTouch.getState() != false && timer.time(TimeUnit.MILLISECONDS) < 1000) {
-            Spinner.setPower(0.4);
-        }
-        stop();
-    }
-
-    //Stops spinner motion and holds current position
-    public void stop() {
-        Spinner.setPower(0);
-
-        Spinner.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Spinner.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     @Override
     public String toString() {
-        switch (ColumnState) {
-            case Position1:
-                return "Position 1";
+        switch (glyphSpinnerState) {
+            case UNFLIPPED:
+                return "Unflipped";
 
-            case Position2:
-                return "Position 2";
+            case FLIPPED:
+                return "Flipped";
 
-            case Stop:
-                return "Stopped";
+            case UNFLIPPING:
+                return "Unflipping";
+
+            case FLIPPING:
+                return "Flipping";
 
             default:
                 return "Unknown";
-
         }
-
-
     }
-
-
 }
