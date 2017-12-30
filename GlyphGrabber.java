@@ -29,6 +29,8 @@ public class GlyphGrabber {
         this.gripArightservo = hardwareMap.servo.get(gripArightservo);
         this.gripBrightservo = hardwareMap.servo.get(gripBrightservo);
 
+        gripAOpen();
+        gripBOpen();
     }
 
     private void updateInvertGripControl(boolean isFlipped) {
@@ -110,27 +112,27 @@ public class GlyphGrabber {
         }
     }
 
-    private void gripAOpen() {
-        gripAleftservo.setPosition(0);
-        gripArightservo.setPosition(0);
+    public void gripAOpen() {
+        gripAleftservo.setPosition(0.6);
+        gripArightservo.setPosition(0.3);
         gripAstate = GlyphGrabberEnum.OPENED;
     }
 
-    private void gripAClose() {
-        gripAleftservo.setPosition(1);
-        gripArightservo.setPosition(1);
+    public void gripAClose() {
+        gripAleftservo.setPosition(0.8);
+        gripArightservo.setPosition(0.1);
         gripAstate = GlyphGrabberEnum.CLOSED;
     }
 
-    private void gripBOpen() {
-        gripBleftservo.setPosition(0);
-        gripBrightservo.setPosition(0);
+    public void gripBOpen() {
+        gripBleftservo.setPosition(0.3);
+        gripBrightservo.setPosition(0.6);
         gripBstate = GlyphGrabberEnum.OPENED;
     }
 
-    private void gripBClose() {
-        gripBleftservo.setPosition(1);
-        gripBrightservo.setPosition(1);
+    public void gripBClose() {
+        gripBleftservo.setPosition(0.8);
+        gripBrightservo.setPosition(0.1);
         gripBstate = GlyphGrabberEnum.CLOSED;
     }
 
@@ -139,7 +141,7 @@ public class GlyphGrabber {
         String gripAtelemetry;
         String gripBtelemetry;
 
-        switch(gripAstate) {
+        switch (gripAstate) {
             case OPENED:
                 gripAtelemetry = "opened";
                 break;
@@ -150,7 +152,7 @@ public class GlyphGrabber {
                 gripAtelemetry = "unknown";
                 break;
         }
-        switch(gripBstate) {
+        switch (gripBstate) {
             case OPENED:
                 gripBtelemetry = "opened";
                 break;
@@ -162,11 +164,18 @@ public class GlyphGrabber {
                 break;
         }
 
+        String gripTelemetry;
         if (wasFlipped) {
-            return String.format("Top Grip: %s\nBottom Grip: %s", gripBtelemetry, gripAtelemetry);
+            gripTelemetry = String.format("Top Grip: %s\nBottom Grip: %s *", gripBtelemetry, gripAtelemetry);
         } else {
-            return String.format("Top Grip: %s\nBottom Grip: %s", gripAtelemetry, gripBtelemetry);
+            gripTelemetry = String.format("Top Grip: %s\nBottom Grip: %s", gripAtelemetry, gripBtelemetry);
         }
+        gripTelemetry += String.format("\ngripAleft: %f\ngripAright: %f\ngripBleft: %f\ngripBright: %f",
+                gripAleftservo.getPosition(), gripArightservo.getPosition(),
+                gripBleftservo.getPosition(), gripBrightservo.getPosition()
+        );
+
+        return gripTelemetry;
     }
 }
 
