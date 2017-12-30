@@ -53,13 +53,6 @@ public class GlyphLift {
         }
     }
 
-//    public void shortlift() {
-//        while (lift.getCurrentPosition() < 1300) {
-//            lift.setPower(1.0);
-//            glyphLiftState = GlyphLiftEnum.LIFTING;
-//        }
-//    }
-
     /**
      * Stops Glyph Lift motion and holds current position
      */

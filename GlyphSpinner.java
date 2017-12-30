@@ -13,8 +13,8 @@ public class GlyphSpinner {
     private Servo spinner;
     private DigitalChannel spinnerTouch;
 
-    static final double FLIPPED_SERVO_POSITION = 0;
-    static final double UNFLIPPED_SERVO_POSITION = 1;
+    private static final double FLIPPED_SERVO_POSITION = 0;
+    private static final double UNFLIPPED_SERVO_POSITION = 1;
 
     private enum GlyphSpinnerEnum {
         UNFLIPPED,
