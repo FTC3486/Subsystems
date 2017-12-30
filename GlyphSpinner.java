@@ -85,18 +85,23 @@ public class GlyphSpinner {
         switch (glyphSpinnerState) {
             case UNFLIPPED:
                 telemetry += "Unflipped";
+                break;
 
             case FLIPPED:
                 telemetry += "Flipped";
+                break;
 
             case UNFLIPPING:
                 telemetry += "Unflipping";
+                break;
 
             case FLIPPING:
                 telemetry += "Flipping";
+                break;
 
             default:
                 telemetry += "Unknown";
+                break;
         }
 
         return telemetry;
