@@ -44,7 +44,8 @@ public class GlyphSpinner {
     }
 
     private boolean isAbleToFlip() {
-
+        //TODO: Replace true with touch sensor
+        return true;
     }
 
     public boolean isFlipping() {
