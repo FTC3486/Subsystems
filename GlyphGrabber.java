@@ -48,29 +48,29 @@ public class GlyphGrabber {
         if (isFlipped) {
             if (invertGripControl) {
                 if (control) {
-                    gripBClose();
-                } else {
                     gripBOpen();
+                } else {
+                    gripBClose();
                 }
             } else {
                 if (control) {
-                    gripBOpen();
-                } else {
                     gripBClose();
+                } else {
+                    gripBOpen();
                 }
             }
         } else {
             if (invertGripControl) {
                 if (control) {
-                    gripAClose();
-                } else {
                     gripAOpen();
+                } else {
+                    gripAClose();
                 }
             } else {
                 if (control) {
-                    gripAOpen();
-                } else {
                     gripAClose();
+                } else {
+                    gripAOpen();
                 }
             }
         }
@@ -82,29 +82,29 @@ public class GlyphGrabber {
         if (isFlipped) {
             if (invertGripControl) {
                 if (control) {
-                    gripAClose();
-                } else {
                     gripAOpen();
+                } else {
+                    gripAClose();
                 }
             } else {
                 if (control) {
-                    gripAOpen();
-                } else {
                     gripAClose();
+                } else {
+                    gripAOpen();
                 }
             }
         } else {
             if (invertGripControl) {
                 if (control) {
-                    gripBClose();
-                } else {
                     gripBOpen();
+                } else {
+                    gripBClose();
                 }
             } else {
                 if (control) {
-                    gripBOpen();
-                } else {
                     gripBClose();
+                } else {
+                    gripBOpen();
                 }
             }
         }

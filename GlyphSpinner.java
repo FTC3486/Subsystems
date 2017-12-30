@@ -44,8 +44,7 @@ public class GlyphSpinner {
     }
 
     private boolean isAbleToFlip() {
-        //TODO: Replace true with touch sensor
-        return true;
+        return spinnerTouch.getState();
     }
 
     public boolean isFlipping() {
@@ -77,21 +76,29 @@ public class GlyphSpinner {
 
     @Override
     public String toString() {
+        String telemetry = "";
+
+        if (!isAbleToFlip()) {
+            telemetry += "BLOCKED ";
+        }
+
         switch (glyphSpinnerState) {
             case UNFLIPPED:
-                return "Unflipped";
+                telemetry += "Unflipped";
 
             case FLIPPED:
-                return "Flipped";
+                telemetry += "Flipped";
 
             case UNFLIPPING:
-                return "Unflipping";
+                telemetry += "Unflipping";
 
             case FLIPPING:
-                return "Flipping";
+                telemetry += "Flipping";
 
             default:
-                return "Unknown";
+                telemetry += "Unknown";
         }
+
+        return telemetry;
     }
 }
