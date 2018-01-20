@@ -111,28 +111,28 @@ public class GlyphGrabber {
             }
         }
     }
-
-    public void gripAOpen() {
-        gripAleftservo.setPosition(0.6);
+//.6 .3
+    public void gripBOpen() {
+        gripAleftservo.setPosition(0.4);
         gripArightservo.setPosition(0.3);
         gripAstate = GlyphGrabberEnum.OPENED;
     }
 
-    public void gripAClose() {
-        gripAleftservo.setPosition(0.8);
-        gripArightservo.setPosition(0.1);
+    public void gripBClose() {
+        gripAleftservo.setPosition(0.3);
+        gripArightservo.setPosition(0.7);
         gripAstate = GlyphGrabberEnum.CLOSED;
     }
-
-    public void gripBOpen() {
-        gripBleftservo.setPosition(0.3);
-        gripBrightservo.setPosition(0.6);
+//.3 .7
+    public void gripAOpen() {
+        gripBleftservo.setPosition(0.7);
+        gripBrightservo.setPosition(0.5);
         gripBstate = GlyphGrabberEnum.OPENED;
     }
 
-    public void gripBClose() {
-        gripBleftservo.setPosition(0.8);
-        gripBrightservo.setPosition(0.1);
+    public void gripAClose() {
+        gripBleftservo.setPosition(0.3);
+        gripBrightservo.setPosition(0.7);
         gripBstate = GlyphGrabberEnum.CLOSED;
     }
 

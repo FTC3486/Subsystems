@@ -11,7 +11,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class GlyphSpinner {
     private Servo spinner;
-    private DigitalChannel spinnerTouch;
+    private DigitalChannel spinnerTouch1;
+    private DigitalChannel spinnerTouch2;
 
     private static final double FLIPPED_SERVO_POSITION = 0;
     private static final double UNFLIPPED_SERVO_POSITION = 1;
@@ -25,12 +26,21 @@ public class GlyphSpinner {
 
     private GlyphSpinnerEnum glyphSpinnerState;
 
-    public GlyphSpinner(String spinner, String touchSensor, HardwareMap hardwareMap) {
+    public GlyphSpinner(String spinner, String touchSensor1,String touchSensor2, HardwareMap hardwareMap) {
         this.spinner = hardwareMap.servo.get(spinner);
-        spinnerTouch = hardwareMap.get(DigitalChannel.class, touchSensor);
-        spinnerTouch.setMode(DigitalChannel.Mode.INPUT);
+        spinnerTouch1 = hardwareMap.get(DigitalChannel.class, touchSensor1);
+        spinnerTouch1.setMode(DigitalChannel.Mode.INPUT);
 
-        this.determineInitialPosition();
+        spinnerTouch2 = hardwareMap.get(DigitalChannel.class, touchSensor2);
+        spinnerTouch2.setMode(DigitalChannel.Mode.INPUT);
+
+        //this.determineInitialPosition();
+        this.initialPosition();
+    }
+
+    private void initialPosition(){
+        this.spinner.setPosition(UNFLIPPED_SERVO_POSITION);
+        glyphSpinnerState = GlyphSpinnerEnum.UNFLIPPED;
     }
 
     private void determineInitialPosition() {
@@ -44,7 +54,12 @@ public class GlyphSpinner {
     }
 
     private boolean isAbleToFlip() {
-        return spinnerTouch.getState();
+        if (spinnerTouch1.getState() == false || spinnerTouch2.getState() ==false){
+            return false;
+        }else {
+            return true;
+        }
+
     }
 
     public boolean isFlipping() {
@@ -57,7 +72,8 @@ public class GlyphSpinner {
 
     public void flip() {
         if (this.isAbleToFlip()) {
-            if (glyphSpinnerState == GlyphSpinnerEnum.FLIPPED || glyphSpinnerState == GlyphSpinnerEnum.UNFLIPPING) {
+            if (glyphSpinnerState == GlyphSpinnerEnum.FLIPPED || glyphSpinnerState == GlyphSpinnerEnum.UNFLIPPING
+                    ) {
                 this.spinner.setPosition(UNFLIPPED_SERVO_POSITION);
                 glyphSpinnerState = GlyphSpinnerEnum.UNFLIPPED;
             } else {
