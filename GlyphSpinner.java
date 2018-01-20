@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  */
 
 public class GlyphSpinner {
-    private Servo spinner;
+    private Servo spinnerServo;
     private DigitalChannel spinnerTouch1;
     private DigitalChannel spinnerTouch2;
 
@@ -27,39 +27,24 @@ public class GlyphSpinner {
     private GlyphSpinnerEnum glyphSpinnerState;
 
     public GlyphSpinner(String spinner, String touchSensor1,String touchSensor2, HardwareMap hardwareMap) {
-        this.spinner = hardwareMap.servo.get(spinner);
+        this.spinnerServo = hardwareMap.servo.get(spinner);
         spinnerTouch1 = hardwareMap.get(DigitalChannel.class, touchSensor1);
         spinnerTouch1.setMode(DigitalChannel.Mode.INPUT);
 
         spinnerTouch2 = hardwareMap.get(DigitalChannel.class, touchSensor2);
         spinnerTouch2.setMode(DigitalChannel.Mode.INPUT);
 
-        //this.determineInitialPosition();
-        this.initialPosition();
+        this.initializePosition();
     }
 
-    private void initialPosition(){
-        this.spinner.setPosition(UNFLIPPED_SERVO_POSITION);
+    private void initializePosition(){
+        this.spinnerServo.setPosition(UNFLIPPED_SERVO_POSITION);
         glyphSpinnerState = GlyphSpinnerEnum.UNFLIPPED;
     }
 
-    private void determineInitialPosition() {
-        double unflippedDifference = Math.abs(this.spinner.getPosition() - UNFLIPPED_SERVO_POSITION);
-        double flippedDifference = Math.abs(this.spinner.getPosition() - FLIPPED_SERVO_POSITION);
-        if (flippedDifference > unflippedDifference) {
-            glyphSpinnerState = GlyphSpinnerEnum.UNFLIPPED;
-        } else {
-            glyphSpinnerState = GlyphSpinnerEnum.FLIPPED;
-        }
-    }
-
     private boolean isAbleToFlip() {
-        if (spinnerTouch1.getState() == false || spinnerTouch2.getState() ==false){
-            return false;
-        }else {
-            return true;
-        }
-
+        // Because getState() returns True if unpressed, if both buttons are True, both buttons are unpressed
+        return spinnerTouch1.getState() && spinnerTouch2.getState();
     }
 
     public boolean isFlipping() {
@@ -72,12 +57,11 @@ public class GlyphSpinner {
 
     public void flip() {
         if (this.isAbleToFlip()) {
-            if (glyphSpinnerState == GlyphSpinnerEnum.FLIPPED || glyphSpinnerState == GlyphSpinnerEnum.UNFLIPPING
-                    ) {
-                this.spinner.setPosition(UNFLIPPED_SERVO_POSITION);
+            if (glyphSpinnerState == GlyphSpinnerEnum.FLIPPED || glyphSpinnerState == GlyphSpinnerEnum.UNFLIPPING) {
+                this.spinnerServo.setPosition(UNFLIPPED_SERVO_POSITION);
                 glyphSpinnerState = GlyphSpinnerEnum.UNFLIPPED;
             } else {
-                this.spinner.setPosition(FLIPPED_SERVO_POSITION);
+                this.spinnerServo.setPosition(FLIPPED_SERVO_POSITION);
                 glyphSpinnerState = GlyphSpinnerEnum.FLIPPED;
             }
         } else {
