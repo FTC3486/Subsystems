@@ -45,8 +45,8 @@ public class RelicClaw {
     }
 
     public void grabRelic() {
-        ClawServo1.setPosition(0.8);
-        ClawServo2.setPosition(0.6);
+        ClawServo1.setPosition(0.9);
+        ClawServo2.setPosition(0.7);
         clawServoState = clawServoEnum.Close;
         isOpen = false;
     }

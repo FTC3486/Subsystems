@@ -50,29 +50,29 @@ public class GlyphGrabber {
         if (isFlipped) {
             if (invertGripControl) {
                 if (control) {
-                    gripBOpen();
+                    gripAOpen();
                 } else {
-                    gripBClose();
+                    gripAClose();
                 }
             } else {
                 if (control) {
-                    gripBClose();
+                    gripAClose();
                 } else {
-                    gripBOpen();
+                    gripAOpen();
                 }
             }
         } else {
             if (invertGripControl) {
                 if (control) {
-                    gripAOpen();
+                    gripBOpen();
                 } else {
-                    gripAClose();
+                    gripBClose();
                 }
             } else {
                 if (control) {
-                    gripAClose();
+                    gripBClose();
                 } else {
-                    gripAOpen();
+                    gripBOpen();
                 }
             }
         }
@@ -84,56 +84,57 @@ public class GlyphGrabber {
         if (isFlipped) {
             if (invertGripControl) {
                 if (control) {
-                    gripAOpen();
+                    gripBOpen();
                 } else {
-                    gripAClose();
+                    gripBClose();
                 }
             } else {
                 if (control) {
-                    gripAClose();
+                    gripBClose();
                 } else {
-                    gripAOpen();
+                    gripBOpen();
                 }
             }
         } else {
             if (invertGripControl) {
                 if (control) {
-                    gripBOpen();
+                    gripAOpen();
                 } else {
-                    gripBClose();
+                    gripAClose();
                 }
             } else {
                 if (control) {
-                    gripBClose();
+                    gripAClose();
                 } else {
-                    gripBOpen();
+                    gripAOpen();
                 }
             }
         }
+
     }
 //.6 .3
     public void gripBOpen() {
-        gripAleftservo.setPosition(0.4);
-        gripArightservo.setPosition(0.3);
-        gripAstate = GlyphGrabberEnum.OPENED;
-    }
-
-    public void gripBClose() {
-        gripAleftservo.setPosition(0.3);
-        gripArightservo.setPosition(0.7);
-        gripAstate = GlyphGrabberEnum.CLOSED;
-    }
-//.3 .7
-    public void gripAOpen() {
         gripBleftservo.setPosition(0.7);
         gripBrightservo.setPosition(0.5);
         gripBstate = GlyphGrabberEnum.OPENED;
     }
 
-    public void gripAClose() {
-        gripBleftservo.setPosition(0.3);
-        gripBrightservo.setPosition(0.7);
+    public void gripBClose() {
+        gripBleftservo.setPosition(0.4);
+        gripBrightservo.setPosition(0.73);
         gripBstate = GlyphGrabberEnum.CLOSED;
+    }
+//.3 .7
+    public void gripAOpen() {
+        gripAleftservo.setPosition(0.35);
+        gripArightservo.setPosition(0.3);
+        gripAstate = GlyphGrabberEnum.OPENED;
+    }
+
+    public void gripAClose() {
+        gripAleftservo.setPosition(0.12);
+        gripArightservo.setPosition(0.53);
+        gripAstate = GlyphGrabberEnum.CLOSED;
     }
 
     @Override

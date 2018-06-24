@@ -21,11 +21,11 @@ public class RelicLift {
     }
 //Runs Glyph Lift up
     public void lift(){
-        Lift.setPower(1.0);
+        Lift.setPower(-1.0);
     }
 //Runs Glyph Lift down
     public void retract(){
-        Lift.setPower(-1.0);
+        Lift.setPower(1.0);
     }
 //Stops Glyph Lift motion and holds current position
     public void stop(){

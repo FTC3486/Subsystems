@@ -15,7 +15,7 @@ public class GlyphSpinner {
     private DigitalChannel spinnerTouch2;
 
     private static final double FLIPPED_SERVO_POSITION = 0;
-    private static final double UNFLIPPED_SERVO_POSITION = 1;
+    private static final double UNFLIPPED_SERVO_POSITION = 0.93;
 
     private enum GlyphSpinnerEnum {
         UNFLIPPED,
@@ -42,7 +42,8 @@ public class GlyphSpinner {
         glyphSpinnerState = GlyphSpinnerEnum.UNFLIPPED;
     }
 
-    private boolean isAbleToFlip() {
+    public boolean isClearOfSwitches()
+    {
         // Because getState() returns True if unpressed, if both buttons are True, both buttons are unpressed
         return spinnerTouch1.getState() && spinnerTouch2.getState();
     }
@@ -56,7 +57,7 @@ public class GlyphSpinner {
     }
 
     public void flip() {
-        if (this.isAbleToFlip()) {
+        if (this.isClearOfSwitches()) {
             if (glyphSpinnerState == GlyphSpinnerEnum.FLIPPED || glyphSpinnerState == GlyphSpinnerEnum.UNFLIPPING) {
                 this.spinnerServo.setPosition(UNFLIPPED_SERVO_POSITION);
                 glyphSpinnerState = GlyphSpinnerEnum.UNFLIPPED;
@@ -78,7 +79,7 @@ public class GlyphSpinner {
     public String toString() {
         String telemetry = "";
 
-        if (!isAbleToFlip()) {
+        if (!isClearOfSwitches()) {
             telemetry += "BLOCKED ";
         }
 
